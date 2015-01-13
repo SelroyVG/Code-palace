@@ -53,7 +53,6 @@ namespace Теплопроводность
             Bitmap image = new Bitmap(canvas.Width, canvas.Height);
             Graphics draw = Graphics.FromImage(image); // Инициализация инструментов рисования
 
-            //          EmptyGraphic();
             Application.DoEvents();
 
             U[0] = U[pointsCount - 1] = 0;
