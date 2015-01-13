@@ -1,31 +1,28 @@
 #include <stdio.h>
 #include <mpi.h>
-
-int main(int argc, char**argv){
+void Wave(double xmax, double ymax, double h, double c, double startPointX, double startPointY, double Vst, double tau, double tmax){
 	double
-		tau = 0.001,
-		t = 0.0,
-		tmax = 1.0,
-		h = 0.002,
-		c = 1.0,
-		xmax = 1.0,
-		ymax = 1.0,
-		startPointX = 0.6, // i = 250, j = 250
-		startPointY = 0.6,
-		Vst = 1.6,
-		r = (c * tau * tau) / (h * h);
+		t = 0.0, r = (c * tau * tau) / (h * h);
+	int tempSize, tempRank;
+	MPI_Comm_size(MPI_COMM_WORLD, &tempSize);
+	MPI_Comm_rank(MPI_COMM_WORLD, &tempRank);
+
+	int *ranks = new int[tempSize];
+	ranks[tempRank] = tempRank;
+
+	MPI_Group gr1, waveGroup;
+	MPI_Comm MPI_COMM_WAVE;
+	MPI_Comm_group(MPI_COMM_WORLD, &gr1);
+	MPI_Group_incl(gr1, 4, ranks, &waveGroup);
+	MPI_Comm_create(MPI_COMM_WORLD, waveGroup, &MPI_COMM_WAVE);
 	int size, rank;
+	MPI_Group_size(waveGroup, &size);
+	MPI_Group_rank(waveGroup, &rank);
 	int N = (int)(xmax / h + 1);
 	int *amountOfStrings = new int[size];
 	MPI_Status status;
 	FILE *f;
-	f = fopen("voln_results.txt", "a");
-	MPI_Init(&argc, &argv);
-	MPI_Comm_size(MPI_COMM_WORLD, &size);
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
-	for (int rankCounter = 0; rankCounter < size; rankCounter++){ // Разделение расчётной области по процессам		
-		amountOfStrings[rankCounter] = N / size;
+	for (int rankCounter = 0; rankCounter < size; rankCounter++){						amountOfStrings[rankCounter] = N / size;
 		int remainStrings = N % size;
 		if (remainStrings > 0){
 			if (rankCounter == size - 1)
@@ -33,8 +30,7 @@ int main(int argc, char**argv){
 			else if (rankCounter < (remainStrings - 1))
 				amountOfStrings[rankCounter]++;
 		}
-		if ((rankCounter == 0) || (rankCounter == size - 1)) // Добавление строк "принадлежащих" соседним процессам
-			amountOfStrings[rankCounter]++;
+		if ((rankCounter == 0) || (rankCounter == size - 1))								amountOfStrings[rankCounter]++;
 		else
 			amountOfStrings[rankCounter] += 2;
 	}
@@ -50,7 +46,7 @@ int main(int argc, char**argv){
 	double **U = new double*[myAmountOfStrings];
 	double **oldU = new double*[myAmountOfStrings];
 	double **futureU = new double*[myAmountOfStrings];
-	double buf[N];
+	double *buf = new double[N];
 	for (int i = 0; i < myAmountOfStrings; i++) {
 		U[i] = new double[N]; oldU[i] = new double[N]; 		futureU[i] = new double[N];
 	}
@@ -59,17 +55,14 @@ int main(int argc, char**argv){
 			U[i][j] = 0.0; oldU[i][j] = 0.0; futureU[i][j] = 0.0;
 		}
 	}
-	if ((startPointX >= xMinForMe) && (startPointX <= (xMinForMe + myAmountOfStrings*h))){ // Нахождение Точки
+	if ((startPointX >= xMinForMe) && (startPointX <= (xMinForMe + myAmountOfStrings*h))){ 
 		int iStart = (int)((startPointX - xMinForMe) / h);
 		int jStart = (int)(startPointY / h);
 		U[iStart][jStart] = Vst;
 		oldU[iStart][jStart] = U[iStart][jStart] - tau*Vst;
-		f = fopen("voln_results.txt", "a");
-		fprintf(f, "Start point at process № %d\n", rank);
-		fclose(f);
 	}
-	MPI_Barrier(MPI_COMM_WORLD);
-	double time = MPI_Wtime();
+	MPI_Barrier(MPI_COMM_WAVE);
+
 	while (t <= tmax){
 		for (int i = 1; i < myAmountOfStrings - 1; i++)
 		for (int j = 1; j < N - 1; j++)
@@ -81,29 +74,87 @@ int main(int argc, char**argv){
 		}
 		t += tau;
 		if (rank != 0)
-`			MPI_Send(U[1], N, MPI_DOUBLE, rank - 1, 111, MPI_COMM_WORLD);
+			MPI_Send(U[1], N, MPI_DOUBLE, rank - 1, 111, MPI_COMM_WAVE);
 		if (rank != size - 1)
-			MPI_Send(U[myAmountOfStrings - 2], N, MPI_DOUBLE, rank + 1, 111, MPI_COMM_WORLD);
+			MPI_Send(U[myAmountOfStrings - 2], N, MPI_DOUBLE, rank + 1, 111, MPI_COMM_WAVE);
 		for (int i = 0; i < num; i++)
-			MPI_Recv(buf, N, MPI_DOUBLE, MPI_ANY_SOURCE, 111, MPI_COMM_WORLD, &status);
+			MPI_Recv(buf, N, MPI_DOUBLE, MPI_ANY_SOURCE, 111, MPI_COMM_WAVE, &status);
 		if (rank < status.MPI_SOURCE)
 		for (int j = 0; j < N; j++)
 			U[myAmountOfStrings - 1][j] = buf[j];
 		else
 		for (int j = 0; j < N; j++)
 			U[0][j] = buf[j];
-		MPI_Barrier(MPI_COMM_WORLD);
+		MPI_Barrier(MPI_COMM_WAVE);
 	}
-	time = MPI_Wtime() - time;
+	int saveYourData;
 	if (rank == 0){
-		f = fopen("voln_results.txt", "a");
-		for (int i = 0; i < 20; i++){
-			for (int j = 0; j < 20; j++)
+		f = fopen("Wave_results.txt", "a");
+		for (int i = 0; i < myAmountOfStrings - 1; i++){
+			for (int j = 0; j < N; j++)
 				fprintf(f, "%.3f ", U[i][j]);
 			fprintf(f, "\n");
 		}
-		fprintf(f, "Time = %f", time); fclose(f);
+		fclose(f);
+		saveYourData = 1;
+		MPI_Send(&saveYourData, 1, MPI_INT, rank + 1, 100, MPI_COMM_WAVE);
 	}
+	else if (rank != size - 1)
+	{
+		MPI_Recv(&saveYourData, 1, MPI_INT, rank - 1, 100, MPI_COMM_WAVE, MPI_STATUS_IGNORE);
+		f = fopen("Wave_results.txt", "a");
+		for (int i = 1; i < myAmountOfStrings - 1; i++){
+			for (int j = 0; j < N; j++)
+				fprintf(f, "%.3f ", U[i][j]);
+			fprintf(f, "\n");
+		}
+		fclose(f);
+		MPI_Send(&saveYourData, 1, MPI_INT, rank + 1, 100, MPI_COMM_WAVE);
+	}
+	else if (rank == size - 1){
+		MPI_Recv(&saveYourData, 1, MPI_INT, rank - 1, 100, MPI_COMM_WAVE, MPI_STATUS_IGNORE);
+		f = fopen("Wave_results.txt", "a");
+		for (int i = 0; i < myAmountOfStrings; i++){
+			for (int j = 0; j < N; j++)
+				fprintf(f, "%.3f ", U[i][j]);
+			fprintf(f, "\n");
+		}
+		fclose(f);
+	}
+	MPI_Group_free(&waveGroup);
+	MPI_Comm_free(&MPI_COMM_WAVE);
+}
+
+Int MPI_Send(void *buf, int count, MPI_Datatype type, int dest, int msgtag, MPI_Comm comm);
+Int MPI_Bcast(void *buf, int count, MPI_Datatype type, int root ,MPI_Comm comm);
+Int MPI_Reduce( void  *buf1, void *buf2, int count, MPi_Datatype type, MPI_Op op, int root, MPI_COMM comm)
+int MPI_Scan(void* rbuf, void* sbuf, int count, MPI_Datatype type, MPI_Op op, MPI_Comm comm);
+int MPI_Gather(void* rbuf, int rcount, MPI_Datatype rtype, void* sbuf, int scount,MPI_Datatype stype,int root,  MPI_Comm comm)
+int MPI_Scatter(void* sbuf, int scount, MPI_Datatype stype, void* rbuf, int rcount, MPI_Datatype rtype, int root, MPI_Comm comm)
+int MPI_Alltoall(void* sbuf, int scount, MPI_Datatype stype, void* rbuf, int rcount, MPI_Datatype rtype, MPI_Comm comm)
+int MPI_Gatherv(void* sbuf, int scount, MPI_Datatype stype, void* rbuf, int* rcount, int* disp, MPI_Datatype rtype, int root, MPI_Comm comm)
+int MPI_Comm_group(MPI_Comm comm, MPI_Group *group)
+int MPI_Group_intersection(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup)
+int MPI_Group_incl(MPI_Goup group, int n, int *ranks, mPI_Group *newgroup)
+int MPI_Group_free(MPI_Group *group)
+LinkCD_t *ConnectLink(int rank, int msgtag, int *err)
+
+
+
+int main(int argc, char**argv){
+	double
+		tau = 0.01,
+		t = 0.0,
+		tmax = 10.0,
+		h = 0.05,
+		c = 1.0,
+		xmax = 1.0,
+		ymax = 1.0,
+		startPointX = 0.6, // i = 250, j = 250
+		startPointY = 0.6,
+		Vst = 1.6;
+	MPI_Init(&argc, &argv);
+	Wave(xmax, ymax, h, c, startPointX, startPointY, Vst, tau, tmax);
 	MPI_Finalize();
-	return 0; 
+	return 0;
 }
