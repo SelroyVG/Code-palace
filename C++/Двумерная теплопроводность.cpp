@@ -9,7 +9,7 @@ int main(int argc, char**argv){
 		h = 1.0,
 		tau = 0.01;
 	int size, rank;
-	
+	/* Начальные условия */
 	double U[N][N], newU[N][N];
 	for (int i = 1; i < N - 1; i++)
 	for (int j = 1; j < N - 1; j++){
@@ -21,6 +21,7 @@ int main(int argc, char**argv){
 		U[0][i] = 22.0*i*pow(exp(1), (-2));
 		U[N - 1][i] = 0;
 	}
+	/* ... */
 	for (double t = 0.0; t < 100.0; t += tau){
 		for (int i = 0; i < N; i++)	{
 			U[i][N - 1] = 22.0*i*pow(exp(1), (-3 * t));
