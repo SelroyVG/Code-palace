@@ -38,7 +38,7 @@ var Town, Time_out, Time_in: array[1..20] of string; F: Textfile;
 strings, n, i: integer;
 S, Need_town: string;  Number, Place: array[1..20] of integer;
 begin
-     AssignFile (F, 'Y:\Веселов\Delphi\Лабораторная работа 11\data.txt');
+     AssignFile (F, 'data.dat'); 
      Reset (F);
      strings := 2;
      Need_town := Form1.Edit1.Text;
@@ -79,7 +79,7 @@ end;
 procedure TForm1.Button2Click(Sender: TObject);
 var S: string; F: Textfile;
 begin
-      AssignFile (F, 'Y:\Веселов\Delphi\Лабораторная работа 11\data.txt');
+      AssignFile (F, 'data.dat');
        Append (F);
       S := Edit2.Text + '|' + Edit3.Text + '|' + Edit4.Text + '|' + Edit5.Text + '|' + Edit6.Text;
       Writeln (F); Write(F, S);
