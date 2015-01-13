@@ -1,4 +1,7 @@
-﻿using System;
+// Дана пластина, на границах которой напряжения 1000V, 500V, 150V и 0V.
+// Показать, как с течением времени изменяется поле потенциалов на этой пластине с помощью метода Либмана.
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
