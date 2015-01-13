@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Волновое_уравнение
+namespace Р’РѕР»РЅРѕРІРѕРµ_СѓСЂР°РІРЅРµРЅРёРµ
 {
     public partial class Form1 : Form
     {
@@ -38,7 +38,7 @@ namespace Волновое_уравнение
 
             int pixelsForPoint = Convert.ToInt32(canvas.Width / pointsCount);
             Bitmap image = new Bitmap(canvas.Width, canvas.Height);
-            Graphics draw = Graphics.FromImage(image); // Инициализация инструментов рисования
+            Graphics draw = Graphics.FromImage(image); // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ СЂРёСЃРѕРІР°РЅРёСЏ
 
 
 
@@ -51,7 +51,7 @@ namespace Волновое_уравнение
                     draw.FillRectangle(deviationBrush, pixelsForPoint * i, pixelsForPoint * j, pixelsForPoint, pixelsForPoint);
 
                 }
-            canvas.Image = image; // Запись bitmap-картинки в PictureBox под названием canvas
+            canvas.Image = image; // Р—Р°РїРёСЃСЊ bitmap-РєР°СЂС‚РёРЅРєРё РІ PictureBox РїРѕРґ РЅР°Р·РІР°РЅРёРµРј canvas
             Application.DoEvents();
             double eps = 0.001;
             int maxTime = 1500;

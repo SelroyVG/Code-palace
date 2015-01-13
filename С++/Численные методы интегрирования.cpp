@@ -1,4 +1,4 @@
-#include <stdio.h>
+п»ї#include <stdio.h>
 #include <math.h>
 #include <time.h>
 #include <locale>
@@ -14,23 +14,23 @@ float simpson(int N);
 void main(){
 	setlocale(LC_ALL, "rus");
 	float true_result = true_def();
-	printf("                          Результат  |  Ошибка\n");
+	printf("                          Р РµР·СѓР»СЊС‚Р°С‚  |  РћС€РёР±РєР°\n");
 	printf("_________________________________________________\n");
-	printf("Истинное значение:        %.7f\n\n", true_result);
+	printf("РСЃС‚РёРЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ:        %.7f\n\n", true_result);
 	float result = rectangle(10000);
-	printf("Метод прямоугольников:    %.7f  |  %.7f\n", result, abs(result-true_result));
+	printf("РњРµС‚РѕРґ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєРѕРІ:    %.7f  |  %.7f\n", result, abs(result-true_result));
 	result = rectangle(20000);
-	printf("С удвоенным числом шагов: %.7f  |  %.7f\n\n", result, abs(result - true_result));
+	printf("РЎ СѓРґРІРѕРµРЅРЅС‹Рј С‡РёСЃР»РѕРј С€Р°РіРѕРІ: %.7f  |  %.7f\n\n", result, abs(result - true_result));
 	result = trapezoid(10000);
-	printf("Метод трапеций:           %.7f  |  %.7f\n", result, abs(result - true_result));
+	printf("РњРµС‚РѕРґ С‚СЂР°РїРµС†РёР№:           %.7f  |  %.7f\n", result, abs(result - true_result));
 	result = trapezoid(20000);
-	printf("С удвоенным числом шагов: %.7f  |  %.7f\n\n", result, abs(result - true_result));
+	printf("РЎ СѓРґРІРѕРµРЅРЅС‹Рј С‡РёСЃР»РѕРј С€Р°РіРѕРІ: %.7f  |  %.7f\n\n", result, abs(result - true_result));
 	result = simpson(10000);
-	printf("Метод Симпсона:           %.7f  |  %.7f\n", result, abs(result - true_result));
+	printf("РњРµС‚РѕРґ РЎРёРјРїСЃРѕРЅР°:           %.7f  |  %.7f\n", result, abs(result - true_result));
 	result = simpson(20000);
-	printf("С удвоенным числом шагов: %.7f  |  %.7f\n\n", result, abs(result - true_result));
+	printf("РЎ СѓРґРІРѕРµРЅРЅС‹Рј С‡РёСЃР»РѕРј С€Р°РіРѕРІ: %.7f  |  %.7f\n\n", result, abs(result - true_result));
 	result = monte_carlo();
-	printf("Метод Монте-Карло:        %.7f  |  %.7f", result, abs(result - true_result));
+	printf("РњРµС‚РѕРґ РњРѕРЅС‚Рµ-РљР°СЂР»Рѕ:        %.7f  |  %.7f", result, abs(result - true_result));
 	getchar();
 
 }
@@ -94,10 +94,3 @@ float monte_carlo(){
 float function(float x){
 	return (tan(x)*tan(x) + (1 / tan(x))*(1 / tan(x)));
 }
-
-/* Курсовая работа по параллельному программированию.
-Тема: Технологии параллельного программирования MPI, OpenMP, CUDA.
-	  Задание №1) Исследовать быстродействие функций коллективного взаимодействия по сравнению
-	  с реализацией с помощью MPI_Send и MPI_Recv; 
-	  
-	  Scatter, Scatterv*/

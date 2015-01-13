@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +21,7 @@ namespace Gershgorin
         {
             canvas.BackColor = Color.White;
             Bitmap image = new Bitmap(canvas.Width, canvas.Height);
-            Graphics draw = Graphics.FromImage(image); // Инициализация инструментов рисования
+            Graphics draw = Graphics.FromImage(image); // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ СЂРёСЃРѕРІР°РЅРёСЏ
             double minY = -20.0, minX = -10.0, maxX = 30.0, maxY = 20.0;
             Point workSpace = new Point();
             workSpace.X = canvas.Width - 45;
@@ -48,7 +48,7 @@ namespace Gershgorin
             matrix[0, 0] = 2.0; matrix[0, 1] = 5.0; matrix[0, 2] = 6.0;
             matrix[1, 0] = 5.0; matrix[1, 1] = 4.0; matrix[1, 2] = 2.0;
             matrix[2, 0] = 6.0; matrix[2, 1] = 2.0; matrix[2, 2] = 7.0;
-            double minXforSobstv = -9.0, maxXforSobstv = 15.0; // Левая и правая граница кругов
+            double minXforSobstv = -9.0, maxXforSobstv = 15.0; // Р›РµРІР°СЏ Рё РїСЂР°РІР°СЏ РіСЂР°РЅРёС†Р° РєСЂСѓРіРѕРІ
             gauss = matrix;
             double maxEllipse = matrix[0, 0];
             for (int i = 1; i < 3; i++)
@@ -73,7 +73,7 @@ namespace Gershgorin
             canvas.Image = image;
                 for (int i = 0; i < pointsCount; i++)
                     d[i] = (matrix[0, 0] - matrix[i, i]) * (matrix[1, 1] - matrix[i, i]) * (matrix[2, 2] - matrix[i, i]) + matrix[0, 1] * matrix[1, 2] * matrix[2, 0] + matrix[0, 2] * matrix[1, 0] * matrix[2, 1] - matrix[0, 2] * (matrix[1, 1] - matrix[i, i]) * matrix[2, 0] - (matrix[0, 0] - matrix[i, i]) * matrix[1, 2] * matrix[2, 1] - matrix[0, 1] * matrix[1, 0] * (matrix[2, 2] - matrix[i, i]);
-                for (int k = 0; k < 3; k++) // Метод Гаусса
+                for (int k = 0; k < 3; k++) // РњРµС‚РѕРґ Р“Р°СѓСЃСЃР°
                     for (int j = k + 1; j < 3; j++)
                     {
                         double r = gauss[j, k] / gauss[k, k];
@@ -87,7 +87,7 @@ namespace Gershgorin
                     for (int j = k + 1; j < 3; j++)
                         r += gauss[k, j] *p[j];
                     p[k] = (d[k] - r) / gauss[k, k];
-                } // Метод Гаусса is over. Массив p - результат
+                } // РњРµС‚РѕРґ Р“Р°СѓСЃСЃР° is over. РњР°СЃСЃРёРІ p - СЂРµР·СѓР»СЊС‚Р°С‚
                 for (double x = minXforSobstv; x < maxXforSobstv; x +=0.001)
                 {
                     double F = x * x * x + p[0] * x * x + p[1] * x + p[2];
@@ -105,7 +105,7 @@ namespace Gershgorin
                             sobstvMatrix[i, i] -= p[i];
                         }
 
-                            /*Метод Гаусса*/
+                            /*РњРµС‚РѕРґ Р“Р°СѓСЃСЃР°*/
                             for (int k = 0; k < 3; k++)
                                 for (int j = k + 1; j < 3; j++)
                                 {
@@ -120,12 +120,12 @@ namespace Gershgorin
                             for (int j = k + 1; j < 3; j++)
                                 r += sobstvMatrix[k, j] * sobstvVector[j];
                             sobstvVector[k] = (d[k] - r) / sobstvMatrix[k, k];
-                        } // Метод Гаусса is over. Массив p - результат
+                        } // РњРµС‚РѕРґ Р“Р°СѓСЃСЃР° is over. РњР°СЃСЃРёРІ p - СЂРµР·СѓР»СЊС‚Р°С‚
 
 
-                        richTextBox.Text += "Корень:" + Environment.NewLine + Convert.ToString(x) + Environment.NewLine;
-                        richTextBox.Text += "Уточн. корень:" + Environment.NewLine + Convert.ToString(xu) + Environment.NewLine;
-                        richTextBox.Text += "Собственный вектор:" + Environment.NewLine + "B[0] = " + Convert.ToString(sobstvVector[0]) + Environment.NewLine + "B[1] = " + Convert.ToString(sobstvVector[1]) + Environment.NewLine + "B[2] = " + Convert.ToString(sobstvVector[2]) + Environment.NewLine;
+                        richTextBox.Text += "РљРѕСЂРµРЅСЊ:" + Environment.NewLine + Convert.ToString(x) + Environment.NewLine;
+                        richTextBox.Text += "РЈС‚РѕС‡РЅ. РєРѕСЂРµРЅСЊ:" + Environment.NewLine + Convert.ToString(xu) + Environment.NewLine;
+                        richTextBox.Text += "РЎРѕР±СЃС‚РІРµРЅРЅС‹Р№ РІРµРєС‚РѕСЂ:" + Environment.NewLine + "B[0] = " + Convert.ToString(sobstvVector[0]) + Environment.NewLine + "B[1] = " + Convert.ToString(sobstvVector[1]) + Environment.NewLine + "B[2] = " + Convert.ToString(sobstvVector[2]) + Environment.NewLine;
                         x -= 0.0005;
                     }
                 }

@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ряды
+namespace Р СЏРґС‹
 {
     public partial class Form1 : Form
     {
@@ -133,7 +133,7 @@ namespace Ряды
             for (int i = 1; i < canvas.Width - zero.X; i++)
             {
                 period = Convert.ToInt32(Math.Truncate(i * pixelValueX / 4.0)); 
-                lineSecond.X = i + zero.X; // Определение координаты x для следующей точки
+                lineSecond.X = i + zero.X; // РћРїСЂРµРґРµР»РµРЅРёРµ РєРѕРѕСЂРґРёРЅР°С‚С‹ x РґР»СЏ СЃР»РµРґСѓСЋС‰РµР№ С‚РѕС‡РєРё
                 if ((i * pixelValueX) - T * period < 2.0)
                 {
                     y = 1 / 2 * Af(0);

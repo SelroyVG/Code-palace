@@ -1,4 +1,4 @@
-#include <stdio.h>
+п»ї#include <stdio.h>
 #include <locale>
 #include <windows.h>
 #include <ctime>
@@ -7,21 +7,21 @@ void main()
 {
 	setlocale(LC_ALL, "rus");
 	int time;
-	printf("Введите частоту автосохранения (в минутах) и нажмите Enter: ");
+	printf("Р’РІРµРґРёС‚Рµ С‡Р°СЃС‚РѕС‚Сѓ Р°РІС‚РѕСЃРѕС…СЂР°РЅРµРЅРёСЏ (РІ РјРёРЅСѓС‚Р°С…) Рё РЅР°Р¶РјРёС‚Рµ Enter: ");
 	scanf("%d", &time);
 	time *= 60;
-	printf("\nТриггер запустится через 30 секунд, можете пока что переключиться на свою программу.\n\n");
+	printf("\nРўСЂРёРіРіРµСЂ Р·Р°РїСѓСЃС‚РёС‚СЃСЏ С‡РµСЂРµР· 30 СЃРµРєСѓРЅРґ, РјРѕР¶РµС‚Рµ РїРѕРєР° С‡С‚Рѕ РїРµСЂРµРєР»СЋС‡РёС‚СЊСЃСЏ РЅР° СЃРІРѕСЋ РїСЂРѕРіСЂР°РјРјСѓ.\n\n");
 	Sleep(30000);
 	while (true)
 	{
 		Sleep((time-3)*1000);
-		printf("Автосохранение через 3... ");
+		printf("РђРІС‚РѕСЃРѕС…СЂР°РЅРµРЅРёРµ С‡РµСЂРµР· 3... ");
 		Sleep(1000); printf("2... "); Sleep(1000); printf("1... "); Sleep(1000);
 		keybd_event(VK_LCONTROL, MapVirtualKeyA(VK_CONTROL, 0), 0, 0);
 		keybd_event('S', MapVirtualKeyA('S', 0), 0, 0);
 		Sleep(10);
 		keybd_event('S', MapVirtualKeyA('S', 0), KEYEVENTF_KEYUP, 0);
 		keybd_event(VK_LCONTROL, MapVirtualKeyA(VK_CONTROL, 0), KEYEVENTF_KEYUP, 0);
-		printf("Сохранено!\n");
+		printf("РЎРѕС…СЂР°РЅРµРЅРѕ!\n");
 	}
 }

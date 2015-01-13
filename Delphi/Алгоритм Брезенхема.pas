@@ -1,4 +1,4 @@
-unit Unit1;
+п»їunit Unit1;
 
 interface
 
@@ -29,7 +29,7 @@ implementation
 var point_number: integer; coord1, coord2: TPoint;
 
 
-procedure TForm1.Button1Click(Sender: TObject);   // Построение сетки
+procedure TForm1.Button1Click(Sender: TObject);   // РџРѕСЃС‚СЂРѕРµРЅРёРµ СЃРµС‚РєРё
 var i, j, x, y: integer;
 begin
 Image1.Canvas.Pen.Color := clGray;
@@ -47,7 +47,7 @@ Image1.Canvas.Pen.Color := clGray;
        Image1.Canvas.LineTo (810, i);
        i := i + 15;
      end;
-     point_number := 0;             // Количество считанных точек
+     point_number := 0;             // РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‡РёС‚Р°РЅРЅС‹С… С‚РѕС‡РµРє
 end;
 
 
@@ -72,33 +72,33 @@ begin
        Image1.Canvas.LineTo (810, i);
        i := i + 15;
      end;
-     point_number := 0;             // Количество считанных точек
+     point_number := 0;             // РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‡РёС‚Р°РЅРЅС‹С… С‚РѕС‡РµРє
 
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
 
-var squares_x, squares_y, x1, x2, y1, y2, x, y, check_otr_y, check_otr_x, t, fin: integer; // Точки относительно начала линии
+var squares_x, squares_y, x1, x2, y1, y2, x, y, check_otr_y, check_otr_x, t, fin: integer; // РўРѕС‡РєРё РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РЅР°С‡Р°Р»Р° Р»РёРЅРёРё
 var err, prir_err: real;
 
 begin
 Image1.Canvas.Brush.Color := clBlue;
       if point_number = 0 then
       begin
-      GetCursorPos(coord1);  // Координаты курсора относительно экрана
-      coord1 := ScreenToClient(coord1);  // Координаты курсора относительно клиента
+      GetCursorPos(coord1);  // РљРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЌРєСЂР°РЅР°
+      coord1 := ScreenToClient(coord1);  // РљРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РєР»РёРµРЅС‚Р°
       point_number := 1;
       Image1.Canvas.Rectangle ((coord1.x div 15)*15, (coord1.y div 15)*15, (coord1.x div 15)*15 + 15, (coord1.y div 15)*15 +15);
       end
       else if point_number = 1 then
 begin
 
-      GetCursorPos(coord2);  // Координаты курсора относительно экрана
-      coord2 := ScreenToClient(coord2);  // Координаты курсора относительно клиента
+      GetCursorPos(coord2);  // РљРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЌРєСЂР°РЅР°
+      coord2 := ScreenToClient(coord2);  // РљРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РєР»РёРµРЅС‚Р°
       x1 := coord1.x div 15; x2 := coord2.x div 15;         y1 := coord1.y div 15; y2 := coord2.y div 15;
-      squares_x := abs(x2 - x1);  squares_y := abs(y2 - y1);   // Кол-во клеток, которые необходимо пройти по x и y
+      squares_x := abs(x2 - x1);  squares_y := abs(y2 - y1);   // РљРѕР»-РІРѕ РєР»РµС‚РѕРє, РєРѕС‚РѕСЂС‹Рµ РЅРµРѕР±С…РѕРґРёРјРѕ РїСЂРѕР№С‚Рё РїРѕ x Рё y
     point_number := 2;
-     Image1.Canvas.Rectangle ((coord2.x div 15)*15, (coord2.y div 15)*15, (coord2.x div 15)*15 + 15, (coord2.y div 15)*15 +15);       // Рисование конечной точки
+     Image1.Canvas.Rectangle ((coord2.x div 15)*15, (coord2.y div 15)*15, (coord2.x div 15)*15 + 15, (coord2.y div 15)*15 +15);       // Р РёСЃРѕРІР°РЅРёРµ РєРѕРЅРµС‡РЅРѕР№ С‚РѕС‡РєРё
       err := 0;
 
 if squares_y < squares_x then

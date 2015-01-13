@@ -1,4 +1,4 @@
-unit Unit1;
+п»їunit Unit1;
 
 interface
 
@@ -157,7 +157,7 @@ var
 iter: integer;
 begin
     iter := ScrollBar1.Position;
-    Form1.Label1.Caption := 'Число итераций: ' + inttostr(iter);
+    Form1.Label1.Caption := 'Р§РёСЃР»Рѕ РёС‚РµСЂР°С†РёР№: ' + inttostr(iter);
 end;
 
 end.
