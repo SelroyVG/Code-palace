@@ -1,4 +1,4 @@
-unit Unit1;
+Ôªøunit Unit1;
 
 interface
 
@@ -28,8 +28,8 @@ implementation
 procedure TForm1.Button1Click(Sender: TObject);
 var S: string;  scan, lng, char_c, i, j, n: integer; characters: string; ch: string;
 begin
-    char_c := 1; //  ÓÎË˜ÂÒÚ‚Ó ‡ÁÎË˜Ì˚ı ÁÌ‡ÍÓ‚
-    scan := 1;  // —Í‡ÌËÛÂÏ˚È ÁÌ‡Í
+    char_c := 1; // –ö–æ–ª–∏—á–µ—Å—Ç–≤–æ —Ä–∞–∑–ª–∏—á–Ω—ã—Ö –∑–Ω–∞–∫–æ–≤
+    scan := 1;  // –°–∫–∞–Ω–∏—Ä—É–µ–º—ã–π –∑–Ω–∞–∫
     S := Form1.Input.Text;
     lng := length(S);
           while lng > 0 do
@@ -37,8 +37,8 @@ begin
                characters := Copy (S, 1, 1);
                i := 1;
                Delete (S, i, 1);
-               i := Pos (characters, S); // ÔÓËÒÍ ·ÛÍ‚˚
-               if not (i > 0) then         // ≈ÒÎË ·ÓÎ¸¯Â ÌÂÚ Ú‡ÍËı ·ÛÍ‚
+               i := Pos (characters, S); // –ø–æ–∏—Å–∫ –±—É–∫–≤—ã
+               if not (i > 0) then         // –ï—Å–ª–∏ –±–æ–ª—å—à–µ –Ω–µ—Ç —Ç–∞–∫–∏—Ö –±—É–∫–≤
                begin
                if (characters <> ' ') then
                Form1.Edit1.Text := Form1.Edit1.Text + characters + ', ' end
