@@ -22,7 +22,8 @@ void Wave(double xmax, double ymax, double h, double c, double startPointX, doub
 	int *amountOfStrings = new int[size];
 	MPI_Status status;
 	FILE *f;
-	for (int rankCounter = 0; rankCounter < size; rankCounter++){						amountOfStrings[rankCounter] = N / size;
+	for (int rankCounter = 0; rankCounter < size; rankCounter++){						
+		amountOfStrings[rankCounter] = N / size;
 		int remainStrings = N % size;
 		if (remainStrings > 0){
 			if (rankCounter == size - 1)
@@ -134,7 +135,7 @@ int main(int argc, char**argv){
 		c = 1.0,
 		xmax = 1.0,
 		ymax = 1.0,
-		startPointX = 0.6, // i = 250, j = 250
+		startPointX = 0.6, // i = 300, j = 300
 		startPointY = 0.6,
 		Vst = 1.6;
 	MPI_Init(&argc, &argv);
