@@ -308,115 +308,6 @@ Form1.Memo1.Clear;
           point4 := check;
       {...}
 
-     {Левая верхняя точка}
-
-  {    if (char_mas[i,i] = clBlack) or (char_mas[0,0] = clBlack) or (char_mas[1,1] = clBlack) or (char_mas[0,1] = clBlack) or (char_mas[1,0] = clBlack) then
-      Begin
-         point1 := 1;
-         Form1.Memo1.Lines.Add ('Левая верхняя точка');
-       End;
-   }  {...}
-     {i := round(cchar.x_char/12);  }
-       {Правая верхняя точка}
-    {  if (char_mas[cchar.x_char-i,i] = clBlack) or (char_mas[cchar.x_char,0] = clBlack) or (char_mas[cchar.x_char-1,1] = clBlack) or (char_mas[cchar.x_char,1] = clBlack) or (char_mas[cchar.x_char-1,0] = clBlack)  then
-      Begin
-         point2 := 1;
-         Form1.Memo1.Lines.Add ('Правая верхняя точка');
-       End;
-     } {...}
-       {Левая нижняя точка}
-     { if (char_mas[i,cchar.y_char-i] = clBlack) or (char_mas[0,cchar.y_char] = clBlack) or (char_mas[1,cchar.y_char-1] = clBlack) or (char_mas[0,cchar.y_char-1] = clBlack) or (char_mas[1,cchar.y_char] = clBlack) then
-      Begin
-         point3 := 1;
-         Form1.Memo1.Lines.Add ('Левая нижняя точка');
-       End;
-    } {...}
-       {Правая нижняя точка}
-   {   if (char_mas[cchar.x_char-i,cchar.y_char-i] = clBlack) or (char_mas[cchar.x_char,cchar.y_char] = clBlack) or (char_mas[cchar.x_char-1,cchar.y_char-1] = clBlack) or (char_mas[cchar.x_char,cchar.y_char-1] = clBlack) or (char_mas[cchar.x_char-1,cchar.y_char] = clBlack) then
-      Begin
-         point4 := 1;
-         Form1.Memo1.Lines.Add ('Правая нижняя точка');
-       End;
-  }   {...}
-
-  {Левая верт. черта}
- { count := 0;
-   for j := 0 to cchar.y_char do
-           if char_mas[0, j] = clBlack then
-              count := count + 1;
-   if count/cchar.y_char >= 0.7  then
-   Begin
-      line1 := true;
-      Form1.Memo1.Lines.Add ('Левая верт. черта');
-   End;
-  } {...}
-
-   {Правая верт. черта}
- {  count := 0;
-   for j := 0 to cchar.y_char do
-           if char_mas[cchar.x_char, j] = clBlack then
-              count := count + 1;
-   if count/cchar.y_char >= 0.7  then
-   Begin
-      line2 := true;
-      Form1.Memo1.Lines.Add ('Правая верт. черта');
-   End;
-  } {...}
-
-   {Верхняя горизонтальная черта}
- {  count := 0;
-  j := cchar.x_char div 20; i:= 0;
-   for i := 0 to cchar.x_char do
-           if char_mas[i, j] = clBlack then
-              count := count + 1;
-
-       if count/cchar.x_char >= 0.6  then
-       Begin
-         line3 := true;
-         Form1.Memo1.Lines.Add ('Верхняя горизонтальная черта');
-       End; } {...}
-
-   {Нижняя горизонтальная черта}
-  { count := 0;
-  j := cchar.y_char - (cchar.x_char div 20); i:= 0;
-   for i := 0 to cchar.x_char do
-           if char_mas[i, j] = clBlack then
-              count := count + 1;
-
-       if count/cchar.x_char >= 0.8  then
-       Begin
-         line4 := true;
-         Form1.Memo1.Lines.Add ('Нижняя горизонтальная черта');
-       End;
-
-   if (count/cchar.x_char < 0.8) and (count/cchar.x_char > 0.6)  then
-       Begin
-         line4_2 := true;
-         Form1.Memo1.Lines.Add ('Половина нижней горизонтальной черты');
-       End;
-   }  {...}
-
-
-
-    {Средняя верт. черта}
-  {count := 0; count2 := 0; count3 := 0;
-   for j := 0 to cchar.y_char do
-           if char_mas[round(cchar.x_char/2), j] = clBlack then
-              count := count + 1;
-   for j := 0 to cchar.y_char do
-           if char_mas[(round(cchar.x_char/2) - cchar.y_char div 12), j] = clBlack then
-              count2 := count2 + 1;
-   for j := 0 to cchar.y_char do
-           if char_mas[(round(cchar.x_char/2) + cchar.y_char div 10), j] = clBlack then
-              count3 := count3 + 1;
-   if (count/cchar.y_char >= 0.6) or (count2/cchar.y_char >= 0.6) or (count3/cchar.y_char >= 0.6) then
-   Begin
-      line9 := true;
-      Form1.Memo1.Lines.Add ('Средняя верт. черта');
-   End;                  }
-   {...}
-
-
      {Средняя верхняя точка}
       if char_mas[round(cchar.x_char/2),0] = clBlack then
       Begin
@@ -554,18 +445,6 @@ procedure TForm1.search (line1, line2, line3, line4, line5, line6:integer; point
     if point3 then S := S + '1' else S := S + '0';
     if point4 then S := S + '1' else S := S + '0';
     S := S + '|';
- {   if line5 then S := S + '1' else S := S + '0';
-
-    if line12 then S := S + '1' else S := S + '0';
-    if line13 then S := S + '1' else S := S + '0';
-    if line14 then S := S + '1' else S := S + '0';
-    if line15 then S := S + '1' else S := S + '0';
-    S := S + inttostr(line16);
-    S := S + inttostr(line17);
-    S := S + inttostr(line19);
-    S := S + inttostr(line20);
-  }
-
    if old_begin_str_ch <> -1 then  //Пробел
      if space = 0 then
      Begin
@@ -586,12 +465,6 @@ procedure TForm1.search (line1, line2, line3, line4, line5, line6:integer; point
     Form1.Memo1.Lines.Add (S);
     check := false;
 
-
-
-
-
-
-    /////////
     if (S = '111222|0011|') then
     Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'А'; check:=true; End;
     if (S = '111131|1111|') then
@@ -669,90 +542,6 @@ procedure TForm1.search (line1, line2, line3, line4, line5, line6:integer; point
     Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ю'; check:=true; End;
     if (S = '211221|1111|') then
     Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Я'; check:=true; End;
-
-
-    /////////
-
-
-
-    {if (S = '000000011010002423') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'А'; check:=true; End;
-    if (S = '101101011011011114') or (S = '101101010011011114') or (S = '101011010011011114') or (S = '101101010011011114') or (S = '101011111011011114') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Б'; check:=true; End;
-    if (S = '101101010011011314') or (S = '101101011011111314') or (S = '101011010011011314') or (S = '101101011011011314') or (S = '101011011011011314') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'В'; check:=true; End;
-    if S = '101001110011000111' then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Г'; check:=true; End;
-    if (S = '001000011010002423') or (S = '001000111010002423') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Д'; check:=true; End;
-    if (S = '101101111011111104') or (S = '101101111011011104') or (S = '101101111011010104') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Е'; check:=true; End;
-    if (S = '000000011110014660') or (S = '000001111110014660') or (S = '000001111110014640') or  (S = '000001111110015640') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ж'; check:=true; End;
-    if (S = '000000000010012223') or (S = '000000000010012222') or (S = '000000000010012224') or (S = '000000000010012424') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'З'; check:=true; End;
-    if S = '110001111001102422' then
-    Begin
-        i := begin_ch + round(cchar.x_char/2);
-        for j := begin_str_ch downto begin_str_ch - round(cchar.y_char/3) do
-           check2 := check2 or scan_color (50, i, j);
-       if check2 = true then Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Й'
-       else Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'И';
-       check:=true;
-    End;
-    if (S = '100001111001002334') or (S = '100001111001002324') or (S = '100001111001003324') or (S = '100001111001002334') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'К'; check:=true; End;
-    if (S = '011000111010101331') or (S = '011000111010101321') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Л'; check:=true; End;
-    if (S = '110001111001112641') or (S = '000001111000004824') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'М'; check:=true; End;
-    if (S = '110001111001102222') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Н'; check:=true; End;
-    if (S = '000000000011112422') or (S = '000000000011112222') or (S = '001000000011112422') or (S = '000000101011112322') or (S = '000000101011112422') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'О'; check:=true; End;
-    if S = '111001111011100221' then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'П'; check:=true; End;
-    if (S = '100001010001002214') or (S = '101001010011001313') or (S = '101001010011001213') or (S = '101001010011101213')  then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Р'; check:=true; End;
-    if (S = '000000000011012222') or (S = '000000001011012222') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'C'; check:=true; End;
-    if S = '001001100110010220' then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Т'; check:=true; End;
-    if (S = '000001100000002422') or (S = '000001110000002422') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'У'; check:=true; End;
-    if (S = '000000000111112620') or (S = '000000000111112520') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ф'; check:=true; End;
-    if (S = '000000011000004422') or (S = '000001111000004422') or (S = '000001111000002422') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Х'; check:=true; End;
-    if (S = '100001001001003312') or (S = '100001101001003312') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ц'; check:=true; End;
-    if (S = '010001101000102212') or (S = '010001101001102212') or (S = '010001101010102312') or (S = '010001101001102312') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ч'; check:=true; End;
-    if S = '110101111111114400' then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ш'; check:=true; End;
-    if (S = '100001001111005511') or (S = '100001001101005511') or (S = '100001101101005512') or (S = '100001101111005511') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Щ'; check:=true; End;
-    if (S = '100101011001011113') or (S = '100101010001011113') or (S = '100101010001001113') or (S = '100011010001011113') or (S = '100011010001001113') or (S = '100001010001001124') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ь'; check:=true; prew := true; End;
-
-    if ((cchar.y_char/cchar.x_char > 4) or (S = '1111011111111110000')) and (prew = true) and (check = false) then
-      Begin
-          S := Form1.results.Lines[String_count];
-         if S[length(s)] = ' ' then
-            Delete(S,Length(S)-1,2) else  Delete(S,Length(S),1);
-          Form1.results.Lines[String_count] := S;
-          Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ы'; check:=true;  prew := false;
-      End else if  (prew = true) and (check = false) then  prew := false; // Удаление предыдущего символа "Ь" если распознана буква "Ы"
-
-    if (S = '000011001000011223') or (S = '000001000100011223') or (S = '000001000110011223') or (S = '000001001000011223') or (S = '000000100110011223') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ъ'; check:=true; End;
-    if (S = '001011010000102226') or (S = '000001010000112225') or (S = '000000000010112224') or (S = '000001010010112224') or (S = '000000000010112424') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Э'; check:=true; End;
-    if (S = '100001111001103434') or (S = '100001010001003534') or (S = '100001010001103534') or (S = '100001010001002524') or (S = '100001010001102524') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Ю'; check:=true; End;
-    if (S = '010000111010102323') or  (S = '011000111010101323') or (S = '011000111010101223') then
-    Begin Form1.results.Lines[String_count] := Form1.results.Lines[String_count] + 'Я'; check:=true; End;
-   }
 
     if Form1.results.Lines[String_count] <> '' then
           old_begin_str_ch := begin_ch + cchar.x_char;
