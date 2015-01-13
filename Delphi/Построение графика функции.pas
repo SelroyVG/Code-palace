@@ -1,3 +1,7 @@
+//
+// Или это что-то другое? Забыл.
+//
+
 unit Unit1;
 
 interface
@@ -107,28 +111,14 @@ Begin
         if ((Ax > 0) and (Bx < 0)) or ((Ax < 0) and (Bx > 0))
            then
           Begin
-       {   xz := X1 + H/4;
-              while (XZ < X2) Do
-              Begin
-                  Ax := Polinom (XZ - h/4, a[1], a[2], a[3], a[4], a[5], a[6]);
-                  Bx := Polinom (XZ, a[1], a[2], a[3], a[4], a[5], a[6]);
-                   if ((Ax > 0) and (Bx < 0)) or ((Ax < 0) and (Bx > 0))
-                      then
-                      Begin  }
-                       // x_sq[count] := (2*XZ - h/4)/2;
-                          x_sq[count] := (X2 + X1)/2;
-                        count := count + 1;
-                     { End;
-                xz := xz + H/5;
-              End;              }
-
-
+            x_sq[count] := (X2 + X1)/2;
+            count := count + 1;
           End;
        X1 := X2;
-        X2 := X2 + H;
+       X2 := X2 + H;
 
     End;
-      Build_graph (y_min, y_max);
+    Build_graph (y_min, y_max);
 End;
 
 function Tform1.Polinom (x, a0, a1, a2, a3, a4, a5: real): real;
