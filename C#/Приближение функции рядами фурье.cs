@@ -1,4 +1,7 @@
-﻿using System;
+// Дана ломаная функция, разложить её в ряд Фурье и построить приближённый график. 
+// Ничего здесь не понимаю, многое делал наобум. 
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
