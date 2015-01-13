@@ -125,22 +125,6 @@ void Wave(double xmax, double ymax, double h, double c, double startPointX, doub
 	MPI_Comm_free(&MPI_COMM_WAVE);
 }
 
-Int MPI_Send(void *buf, int count, MPI_Datatype type, int dest, int msgtag, MPI_Comm comm);
-Int MPI_Bcast(void *buf, int count, MPI_Datatype type, int root ,MPI_Comm comm);
-Int MPI_Reduce( void  *buf1, void *buf2, int count, MPi_Datatype type, MPI_Op op, int root, MPI_COMM comm)
-int MPI_Scan(void* rbuf, void* sbuf, int count, MPI_Datatype type, MPI_Op op, MPI_Comm comm);
-int MPI_Gather(void* rbuf, int rcount, MPI_Datatype rtype, void* sbuf, int scount,MPI_Datatype stype,int root,  MPI_Comm comm)
-int MPI_Scatter(void* sbuf, int scount, MPI_Datatype stype, void* rbuf, int rcount, MPI_Datatype rtype, int root, MPI_Comm comm)
-int MPI_Alltoall(void* sbuf, int scount, MPI_Datatype stype, void* rbuf, int rcount, MPI_Datatype rtype, MPI_Comm comm)
-int MPI_Gatherv(void* sbuf, int scount, MPI_Datatype stype, void* rbuf, int* rcount, int* disp, MPI_Datatype rtype, int root, MPI_Comm comm)
-int MPI_Comm_group(MPI_Comm comm, MPI_Group *group)
-int MPI_Group_intersection(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup)
-int MPI_Group_incl(MPI_Goup group, int n, int *ranks, mPI_Group *newgroup)
-int MPI_Group_free(MPI_Group *group)
-LinkCD_t *ConnectLink(int rank, int msgtag, int *err)
-
-
-
 int main(int argc, char**argv){
 	double
 		tau = 0.01,
