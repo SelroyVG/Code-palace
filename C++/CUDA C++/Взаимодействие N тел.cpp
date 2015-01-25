@@ -1,4 +1,4 @@
-﻿#include "cuda_runtime.h"
+#include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,16 +36,15 @@ __global__ void Nbody (float*U, float*newU){
 	if ((newPosition > MAX_POSITION) || (newPosition < MIN_POSITION)) {
 		newU[i] = -newU[i];
 		newU[i + 2] = U[i + 2] + tau*newU[i];
-	}
-	else
+	} else
 		newU[i + 2] = newPosition;
 
 	newPosition = U[i + 3] + tau*newU[i + 1];
 	if ((newPosition > MAX_POSITION) || (newPosition < MIN_POSITION)){
 		newU[i + 1] = -newU[i + 1];
 		newU[i + 3] = U[i + 3] + tau*newU[i + 1];
-	}
-	else newU[i + 3] = newPosition;
+	} else 
+		newU[i + 3] = newPosition;
 }
 
 int main(){
