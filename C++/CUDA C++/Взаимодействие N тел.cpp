@@ -16,9 +16,9 @@
 __global__ void Nbody (float*U, float*newU){
 
 	int A1 = 1 // Какие-то случайные константы, для подстановки в уравнение
-		A2 = 2
-		p1 = 3
-		p2 = 2;
+	    A2 = 2
+	    p1 = 3
+	    p2 = 2;
 
 	int i = threadIdx.x * 4;
 	float Vx = 0.0f; float Vy = 0.0f; 
