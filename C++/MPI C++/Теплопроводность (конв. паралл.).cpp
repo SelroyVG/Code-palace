@@ -19,7 +19,6 @@ int main(int argc, char**argv){
 	double
 		h = 1.0,
 		tau = 0.01,
-		t = 0.0,
 		tmax = 100.0,
 		xmin = 0.0,
 		ymin = 0.0,
@@ -62,7 +61,7 @@ int main(int argc, char**argv){
 	double time = MPI_Wtime();
 
 
-	while (t < tmax){
+	for(float t = 0.0, t < tmax, t += tau){
 
 		if (rank == 0){
 			for (int i = 0; i < num - 1; i++)
@@ -132,8 +131,6 @@ int main(int argc, char**argv){
 			for (int j = 0; j <= N - 1; j++)
 				U[i][j] = newU[i][j];
 		}
-		t += tau;
-
 	}
 	time = MPI_Wtime() - time;
 
